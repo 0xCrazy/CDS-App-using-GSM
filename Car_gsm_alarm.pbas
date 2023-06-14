@@ -1,0 +1,55 @@
+program Car_gsm_alarm
+dim received_byte as byte
+trisb = 0
+trisd = 1
+portb = 0
+portd = 1
+
+
+
+
+
+main:
+while true
+         if portb.2=1 then
+          portd.7=1
+          delay_ms(10000)
+          portd.7=0
+          end if
+          
+          if portb.4 and portb.5=1 then
+          portd.6=1
+          delay_ms(10000)
+          portd.6=0
+        end if
+        
+
+
+         if portb.3=1 then
+
+
+USART_INIT(9600)
+
+            Usart_Write_text("AT")
+            Usart_Write(0X0D)
+            delay_ms(3000)
+
+
+            Usart_Write_text("AT+CMGF=1")
+            Usart_Write(0X0D)
+            delay_ms(3000)
+
+            Usart_Write_text("AT+CMGS=")
+            Usart_Write(0x0D)
+            delay_ms(3000)
+
+            Usart_Write_text("SOME IN YOUR CAR")
+            Usart_Write(26)
+            delay_ms(3000)
+
+            else
+            PORTC.2=0
+    end if
+
+  wend
+end.
